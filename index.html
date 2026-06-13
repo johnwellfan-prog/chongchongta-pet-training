@@ -6,6 +6,16 @@
 <title>宠宠它 - 宠托师专业培训课程</title>
 <meta name="description" content="为宠托师提供互动式培训内容，降低学习阻力，帮助快速吸收知识，提升专业技能。">
 <script src="https://lf3-cdn-tos.bytegoofy.com/goofy/feishu/jsapi/2.0.0/tt.min.js"></script>
+<script>
+// JSSDK ready promise
+var ttReady = new Promise(function(resolve) {
+  if (typeof tt === 'undefined') { resolve(false); return; }
+  try {
+    tt.ready(function() { resolve(true); });
+    setTimeout(function() { resolve(false); }, 3000);
+  } catch(e) { resolve(false); }
+});
+</script>
 <style>
 /* ===== CSS Variables & Theme ===== */
 :root {
@@ -2679,11 +2689,12 @@ function submitCertification() {
 
 async function tryDirectSubmit(data) {
   // Method 1: Feishu JSSDK tt.request (works in Feishu client)
-  if (typeof tt !== 'undefined' && tt.request) {
+  var jssdkReady = await ttReady;
+  if (jssdkReady && typeof tt !== 'undefined' && tt.request) {
     try {
-      const resp = await new Promise((resolve, reject) => {
+      var resp = await new Promise(function(resolve, reject) {
         tt.request({
-          url: `https://open.feishu.cn/open-apis/bitable/v1/apps/${BASE_TOKEN}/tables/${TABLE_ID}/records`,
+          url: 'https://open.feishu.cn/open-apis/bitable/v1/apps/' + BASE_TOKEN + '/tables/' + TABLE_ID + '/records',
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           data: JSON.stringify({
@@ -2695,46 +2706,39 @@ async function tryDirectSubmit(data) {
               '学习进度': data.progress
             }
           }),
-          success: (res) => resolve(JSON.parse(res.data || '{}')),
-          fail: (err) => reject(err)
+          success: function(res) { resolve(JSON.parse(res.data || '{}')); },
+          fail: function(err) { reject(err); }
         });
       });
       if (resp.code === 0) return { ok: true, recordId: resp.data?.record?.record_id };
-      return { ok: false, error: `API: ${resp.msg || resp.code}` };
+      return { ok: false, error: 'API: ' + (resp.msg || resp.code) };
     } catch (e) {
-      console.log('JSSDK tt.request failed:', e.message);
+      console.log('JSSDK failed:', e.message);
     }
   }
 
-  // Method 2: fetch with credentials (from Miaoda/Feishu domains)
+  // Method 2: Backend proxy (always available while tunnel runs)
   try {
-    const resp = await fetch(
-      `https://open.feishu.cn/open-apis/bitable/v1/apps/${BASE_TOKEN}/tables/${TABLE_ID}/records`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({
-          fields: {
-            '姓名': data.name,
-            '手机号': data.phone,
-            '培训得分': data.score,
-            '完成时间': Date.now(),
-            '学习进度': data.progress
-          }
-        })
-      }
-    );
+    var resp = await fetch('https://green-firefox-89.loca.lt/api/submit-training', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: data.name,
+        phone: data.phone,
+        score: data.score,
+        progress: data.progress
+      })
+    });
     if (resp.ok) {
-      const json = await resp.json();
-      if (json.code === 0) return { ok: true, recordId: json.data?.record?.record_id };
-      return { ok: false, error: json.msg };
+      var json = await resp.json();
+      if (json.ok) return { ok: true, recordId: json.recordIds?.[0] };
+      return { ok: false, error: json.error || 'Backend error' };
     }
   } catch (e) {
-    console.log('fetch failed:', e.message);
+    console.log('Backend proxy failed:', e.message);
   }
 
-  return { ok: false, error: '无法直连API，请使用表单' };
+  return { ok: false, error: '无法连接，请使用表单' };
 }
 
 function showFormFallback(data) {
