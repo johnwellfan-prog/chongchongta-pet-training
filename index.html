@@ -1,0 +1,2466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>宠宠它 - 宠托师专业培训课程</title>
+<meta name="description" content="为宠托师提供互动式培训内容，降低学习阻力，帮助快速吸收知识，提升专业技能。">
+<style>
+/* ===== CSS Variables & Theme ===== */
+:root {
+  --primary: #EE7C2B;
+  --primary-light: #FFF0E5;
+  --primary-dark: #C75C1A;
+  --success: #52C41A;
+  --success-light: #F0FFF4;
+  --warning: #FAAD14;
+  --warning-light: #FFFBE6;
+  --danger: #E23636;
+  --danger-light: #FFF2F0;
+  --info: #4096FF;
+  --info-light: #F0F7FF;
+  --bg: #FFF9F5;
+  --bg-card: #FFFFFF;
+  --text: #2E251F;
+  --text-secondary: #6B5E55;
+  --text-muted: #9B8E85;
+  --border: #F0E8E0;
+  --border-active: #EE7C2B;
+  --shadow-sm: 0 1px 3px rgba(46,37,31,0.06);
+  --shadow-md: 0 4px 12px rgba(46,37,31,0.08);
+  --shadow-lg: 0 8px 24px rgba(46,37,31,0.12);
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --font-xs: 0.75rem;
+  --font-sm: 0.8125rem;
+  --font-base: 0.9375rem;
+  --font-md: 1.0625rem;
+  --font-lg: 1.25rem;
+  --font-xl: 1.5rem;
+  --font-2xl: 2rem;
+  --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+  --max-width: 480px;
+}
+
+/* ===== Base Styles ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.app-container {
+  width: 100%;
+  max-width: var(--max-width);
+  min-height: 100vh;
+  position: relative;
+}
+
+/* ===== Top Progress Bar ===== */
+.top-progress {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.progress-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.progress-title .icon { font-size: 1.1rem; }
+
+.progress-stats {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.progress-stats strong {
+  color: var(--primary);
+  font-size: var(--font-sm);
+}
+
+.progress-bar-track {
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FFA940, #EE7C2B);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+  width: 0%;
+}
+
+.progress-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+}
+
+.progress-label .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--success);
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ===== Page Views ===== */
+.page-view {
+  display: none;
+  padding: 0 16px 120px;
+}
+
+.page-view.active { display: block; }
+
+/* ===== Home Page ===== */
+.home-hero {
+  text-align: center;
+  padding: 24px 0 20px;
+}
+
+.hero-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, #FFD591, #FFA940);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 24px rgba(238,124,43,0.25);
+}
+
+.hero-title {
+  font-size: var(--font-2xl);
+  font-weight: 800;
+  background: linear-gradient(135deg, #C75C1A, #EE7C2B);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.5px;
+}
+
+.hero-subtitle {
+  font-size: var(--font-md);
+  color: var(--text-secondary);
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.hero-desc {
+  font-size: var(--font-sm);
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ===== Learning Progress Section ===== */
+.learning-progress-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+}
+
+.learning-progress-card .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.learning-progress-card .header h3 {
+  font-size: var(--font-md);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.learning-progress-card .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 10px 6px;
+  background: var(--primary-light);
+  border-radius: var(--radius);
+}
+
+.stat-item .stat-num {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.stat-item .stat-label {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.encourage-text {
+  text-align: center;
+  font-size: var(--font-sm);
+  color: var(--primary);
+  font-weight: 600;
+  padding: 10px;
+  background: var(--primary-light);
+  border-radius: var(--radius);
+}
+
+/* ===== Chapter List ===== */
+.section-title {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  margin: 20px 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chapter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chapter-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.chapter-card:hover {
+  border-color: var(--border-active);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.chapter-card:active {
+  transform: scale(0.985);
+}
+
+.chapter-card.completed {
+  border-color: #B7EB8F;
+  background: #FAFFFA;
+}
+
+.chapter-card.completed::after {
+  content: '✓';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--success);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.chapter-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--font-md);
+  flex-shrink: 0;
+  transition: all var(--transition);
+}
+
+.chapter-card.completed .chapter-num {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.chapter-info { flex: 1; min-width: 0; }
+
+.chapter-info h4 {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chapter-info p {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chapter-arrow {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+/* ===== Tips Card ===== */
+.tips-card {
+  background: linear-gradient(135deg, #FFF7E6, #FFFBE6);
+  border: 1px solid #FFE58F;
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  margin-top: 16px;
+}
+
+.tips-card h3 {
+  font-size: var(--font-base);
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tips-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.tips-card li {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  padding: 5px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.tips-card li::before {
+  content: '💡';
+  flex-shrink: 0;
+}
+
+/* ===== Chapter Content Page ===== */
+.chapter-header {
+  padding: 20px 0 16px;
+  position: relative;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--primary);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--primary-light);
+  border: none;
+  margin-bottom: 14px;
+  transition: all var(--transition);
+}
+
+.back-btn:hover { background: #FFE4CC; }
+.back-btn:active { transform: scale(0.96); }
+
+.chapter-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.chapter-page-title {
+  font-size: var(--font-xl);
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.chapter-page-desc {
+  font-size: var(--font-sm);
+  color: var(--text-muted);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* ===== Content Cards ===== */
+.content-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 18px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.content-card h3 {
+  font-size: var(--font-md);
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.content-card h4 {
+  font-size: var(--font-base);
+  font-weight: 600;
+  margin: 12px 0 6px;
+}
+
+.content-card p, .content-card li {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.content-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.content-card ul li {
+  padding: 4px 0;
+  padding-left: 16px;
+  position: relative;
+}
+
+.content-card ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+/* ===== Highlight Cards ===== */
+.highlight-card {
+  background: linear-gradient(135deg, var(--primary-light), #FFF5EC);
+  border: 1px solid #FFD5A8;
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.highlight-card.warning {
+  background: var(--warning-light);
+  border-color: #FFE58F;
+}
+
+.highlight-card.danger {
+  background: var(--danger-light);
+  border-color: #FFBFB8;
+}
+
+.highlight-card.info {
+  background: var(--info-light);
+  border-color: #ADC6FF;
+}
+
+.highlight-card.success {
+  background: var(--success-light);
+  border-color: #B7EB8F;
+}
+
+.highlight-card h4 {
+  font-size: var(--font-base);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.highlight-card p, .highlight-card li {
+  font-size: var(--font-sm);
+  line-height: 1.6;
+}
+
+/* ===== Service Comparison Grid ===== */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.compare-item {
+  padding: 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  text-align: center;
+  background: var(--bg-card);
+}
+
+.compare-item.active {
+  border-color: var(--border-active);
+  background: var(--primary-light);
+}
+
+.compare-item .compare-icon {
+  font-size: 1.5rem;
+  margin-bottom: 6px;
+}
+
+.compare-item .compare-title {
+  font-weight: 600;
+  font-size: var(--font-sm);
+}
+
+.compare-item .compare-detail {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ===== Price Table ===== */
+.price-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.price-card {
+  text-align: center;
+  padding: 16px 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+
+.price-card .pet-icon {
+  font-size: 1.8rem;
+  margin-bottom: 6px;
+}
+
+.price-card .price-type {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+}
+
+.price-card .price-amount {
+  font-size: var(--font-lg);
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin: 4px 0;
+}
+
+.price-card .price-note {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+}
+
+/* ===== Checklist ===== */
+.checklist {
+  list-style: none !important;
+  padding: 0 !important;
+}
+
+.checklist li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0 !important;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  padding-left: 0 !important;
+  transition: all var(--transition);
+}
+
+.checklist li::before { display: none !important; }
+
+.checklist li:last-child { border-bottom: none; }
+
+.checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  font-size: 0.7rem;
+  color: transparent;
+}
+
+.checklist li.checked .checkbox {
+  background: var(--success);
+  border-color: var(--success);
+  color: white;
+}
+
+.checklist li.checked .checklist-text {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.checklist-text {
+  font-size: var(--font-sm);
+  flex: 1;
+  transition: all var(--transition);
+}
+
+/* ===== Rule Cards ===== */
+.rule-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+  margin-bottom: 8px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+
+.rule-card.red-line {
+  border-left: 4px solid var(--danger);
+  background: #FFFBFB;
+}
+
+.rule-card.severe {
+  border-left: 4px solid var(--warning);
+}
+
+.rule-card.minor {
+  border-left: 4px solid var(--info);
+}
+
+.rule-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.rule-content { flex: 1; }
+
+.rule-content h4 {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.rule-content p {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.rule-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 100px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rule-badge.danger {
+  background: var(--danger-light);
+  color: var(--danger);
+}
+
+.rule-badge.warning {
+  background: var(--warning-light);
+  color: #AD6800;
+}
+
+.rule-badge.info {
+  background: var(--info-light);
+  color: #1D39C4;
+}
+
+/* ===== Step List ===== */
+.step-list {
+  counter-reset: step;
+  list-style: none !important;
+  padding: 0 !important;
+}
+
+.step-list li {
+  counter-increment: step;
+  padding: 12px 0 12px 36px !important;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+
+.step-list li::before {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--primary) !important;
+  color: white !important;
+  content: counter(step) !important;
+  font-size: var(--font-xs) !important;
+  font-weight: 700 !important;
+}
+
+.step-list li:last-child { border-bottom: none; }
+
+/* ===== Message Templates ===== */
+.template-card {
+  background: #F8F8F6;
+  border-radius: var(--radius);
+  padding: 14px;
+  margin: 8px 0;
+  position: relative;
+}
+
+.template-card .template-label {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.template-card .template-text {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  font-size: var(--font-xs);
+  color: var(--primary);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.copy-btn:hover { background: var(--primary-light); }
+.copy-btn.copied { background: var(--success); color: white; border-color: var(--success); }
+
+/* ===== Quiz ===== */
+.quiz-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 20px;
+  margin-bottom: 14px;
+}
+
+.quiz-progress {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.quiz-question {
+  font-size: var(--font-md);
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quiz-option {
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: left;
+  font-size: var(--font-sm);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quiz-option:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.quiz-option.selected {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  font-weight: 600;
+}
+
+.quiz-option.correct {
+  border-color: var(--success) !important;
+  background: var(--success-light) !important;
+  color: #135200 !important;
+}
+
+.quiz-option.wrong {
+  border-color: var(--danger) !important;
+  background: var(--danger-light) !important;
+  color: #820014 !important;
+}
+
+.quiz-option .option-letter {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--font-xs);
+  flex-shrink: 0;
+}
+
+.quiz-option.correct .option-letter {
+  background: var(--success);
+  color: white;
+}
+
+.quiz-option.wrong .option-letter {
+  background: var(--danger);
+  color: white;
+}
+
+.quiz-feedback {
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  display: none;
+}
+
+.quiz-feedback.show { display: block; }
+
+.quiz-feedback.correct {
+  background: var(--success-light);
+  color: #135200;
+  border: 1px solid #B7EB8F;
+}
+
+.quiz-feedback.wrong {
+  background: var(--danger-light);
+  color: #820014;
+  border: 1px solid #FFBFB8;
+}
+
+/* ===== Bottom Navigation ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-width);
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  padding: 14px 16px;
+  padding-bottom: max(14px, env(safe-area-inset-bottom));
+  display: flex;
+  gap: 10px;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.btn {
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  font-size: var(--font-base);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  letter-spacing: 0.3px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #FFA940, #EE7C2B);
+  color: white;
+  flex: 1;
+  box-shadow: 0 4px 12px rgba(238,124,43,0.3);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(238,124,43,0.4);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(238,124,43,0.3);
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover { background: #F5F5F5; }
+.btn-secondary:active { transform: scale(0.97); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: var(--font-sm);
+  border-radius: var(--radius-sm);
+}
+
+/* ===== Completion Page ===== */
+.completion-hero {
+  text-align: center;
+  padding: 32px 0 20px;
+}
+
+.completion-icon {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 16px;
+  animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.completion-title {
+  font-size: var(--font-xl);
+  font-weight: 800;
+  color: var(--primary-dark);
+}
+
+.completion-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.completion-stat {
+  text-align: center;
+  padding: 16px 8px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.completion-stat .num {
+  font-size: var(--font-xl);
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.completion-stat .label {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ===== Footer ===== */
+.app-footer {
+  text-align: center;
+  padding: 20px 16px 30px;
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+}
+
+.app-footer .brand {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* ===== FAB ===== */
+.fab {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  cursor: pointer;
+  z-index: 99;
+  transition: all var(--transition);
+}
+
+.fab:hover { box-shadow: var(--shadow-lg); }
+.fab:active { transform: scale(0.92); }
+
+/* ===== Toast ===== */
+.toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  border-radius: 100px;
+  background: #2E251F;
+  color: white;
+  font-size: var(--font-sm);
+  font-weight: 500;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  box-shadow: var(--shadow-lg);
+}
+
+.toast.show { opacity: 1; }
+
+/* ===== Animations ===== */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.page-view.active {
+  animation: slideIn 0.3s ease;
+}
+
+/* ===== Responsive ===== */
+@media (min-width: 480px) {
+  .app-container {
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+}
+
+/* ===== Empty State ===== */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.empty-state .icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.empty-state h3 {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.empty-state p {
+  font-size: var(--font-sm);
+  color: var(--text-muted);
+}
+
+/* ===== Divider ===== */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 16px 0;
+}
+
+/* ===== Tag ===== */
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: var(--font-xs);
+  font-weight: 600;
+}
+
+.tag-primary { background: var(--primary-light); color: var(--primary-dark); }
+.tag-success { background: var(--success-light); color: #135200; }
+.tag-danger { background: var(--danger-light); color: var(--danger); }
+.tag-warning { background: var(--warning-light); color: #AD6800; }
+
+/* ===== print hidden ===== */
+@media print {
+  .bottom-nav, .top-progress, .fab { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="app-container" id="app">
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Top Progress Bar -->
+  <div class="top-progress" id="topProgress">
+    <div class="progress-header">
+      <span class="progress-title">🐾 宠宠它培训</span>
+      <span class="progress-stats">完成 <strong id="topCompleted">0</strong> / 10 章</span>
+    </div>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+    <div class="progress-label">
+      <span class="dot"></span>
+      <span id="progressLabel">开始你的宠托师之旅吧！</span>
+    </div>
+  </div>
+
+  <!-- Home Page -->
+  <div class="page-view active" id="page-home">
+  </div>
+
+  <!-- Chapter Pages (dynamically generated) -->
+  <div class="page-view" id="page-chapter"></div>
+
+  <!-- Quiz Page -->
+  <div class="page-view" id="page-quiz"></div>
+
+  <!-- Completion Page -->
+  <div class="page-view" id="page-completion"></div>
+
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav" id="bottomNav">
+    <button class="btn btn-secondary" id="btnPrev" style="display:none;">← 上一章</button>
+    <button class="btn btn-primary" id="btnNext">开始学习 →</button>
+  </div>
+</div>
+
+<script>
+// ===== DATA: All Course Content =====
+const courseData = {
+  chapters: [
+    {
+      id: 1,
+      icon: '🐾',
+      title: '平台介绍与加入条件',
+      desc: '了解宠宠它平台背景、业务范围与加入要求，开启你的宠托师之旅',
+      checklist: [
+        '了解平台核心定位与业务范围',
+        '掌握平台覆盖城市与服务规模',
+        '明确成为宠托师的基本条件',
+        '理解平台对宠托师的核心优势'
+      ],
+      content: `
+        <div class="chapter-header">
+          <div class="chapter-icon">🐾</div>
+          <h2 class="chapter-page-title">平台介绍与加入条件</h2>
+          <p class="chapter-page-desc">了解宠宠它平台背景、业务范围与加入要求，开启你的宠托师之旅</p>
+        </div>
+
+        <div class="content-card">
+          <h3>🐾 平台核心定位</h3>
+          <p>宠宠它是<strong>聚焦宠物上门喂养服务</strong>的小程序平台，于<strong>宠物友好之城——深圳</strong>创立，核心解决铲屎官离家期间爱宠无人照管的实际痛点。</p>
+          <div class="highlight-card" style="margin-top:12px;">
+            <p style="font-weight:600;font-size:var(--font-base);text-align:center;">"成为宠物安心的陪伴者，主人放心的守护者"</p>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>📋 核心业务</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div class="compare-item"><div class="compare-icon">🐱</div><div class="compare-title">宠物上门喂养</div><div class="compare-detail">专业宠托师上门照顾留守宠物</div></div>
+            <div class="compare-item"><div class="compare-icon">🦮</div><div class="compare-title">上门遛狗</div><div class="compare-detail">按用户需求外出遛狗，保持运动习惯</div></div>
+            <div class="compare-item"><div class="compare-icon">🏥</div><div class="compare-title">外出陪诊</div><div class="compare-detail">全程陪伴宠物就医，预约记录医嘱</div></div>
+            <div class="compare-item"><div class="compare-icon">🚿</div><div class="compare-title">洗护接送</div><div class="compare-detail">接送宠物往返洗护机构</div></div>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>📊 平台规模</h3>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center;">
+            <div style="padding:12px;background:var(--primary-light);border-radius:var(--radius);"><div style="font-size:1.5rem;font-weight:800;color:var(--primary-dark);">12城</div><div style="font-size:var(--font-xs);color:var(--text-secondary);">城市覆盖</div></div>
+            <div style="padding:12px;background:var(--primary-light);border-radius:var(--radius);"><div style="font-size:1.5rem;font-weight:800;color:var(--primary-dark);">数万名</div><div style="font-size:var(--font-xs);color:var(--text-secondary);">注册宠托师</div></div>
+            <div style="padding:12px;background:var(--primary-light);border-radius:var(--radius);"><div style="font-size:1.5rem;font-weight:800;color:var(--primary-dark);">快速</div><div style="font-size:var(--font-xs);color:var(--text-secondary);">响应订单</div></div>
+          </div>
+          <p style="margin-top:10px;font-size:var(--font-xs);color:var(--text-muted);">覆盖北京、上海、广州、深圳、成都、重庆、杭州、苏州、南京、长沙、武汉、西安</p>
+        </div>
+
+        <div class="content-card">
+          <h3>⭐ 平台优势（宠托师端）</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div class="highlight-card"><h4>🔓 自由接单</h4><p style="font-size:var(--font-xs);">海量订单资源，时间自由安排，兼职增收两不误</p></div>
+            <div class="highlight-card"><h4>💰 定价有竞争力</h4><p style="font-size:var(--font-xs);">服务定价高于行业平均水平，轻松兼职收入可观</p></div>
+            <div class="highlight-card"><h4>❤️ 爱好变事业</h4><p style="font-size:var(--font-xs);">爱宠+增收双向价值，用爱心服务获得更多认可</p></div>
+            <div class="highlight-card"><h4>🎧 1v1客服跟进</h4><p style="font-size:var(--font-xs);">专属客服全程协助，疑难问题随时解答</p></div>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>✅ 加入条件</h3>
+          <div class="highlight-card info">
+            <h4>📌 基础要求</h4>
+            <ul><li>年龄要求：<strong>18-45周岁</strong></li><li>性别要求：男女均可，<strong>一定要爱宠</strong></li><li>经验要求：<strong>至少2年养宠经验</strong></li><li>有上门喂养经验者优先考虑，以身份证年龄为准</li></ul>
+          </div>
+          <div class="highlight-card" style="margin-top:10px;">
+            <h4>🔒 硬性要求</h4>
+            <ul>
+              <li><strong>实名登记：</strong>必须在平台完成实名认证登记</li>
+              <li><strong>养宠证明：</strong>提供2年以上养宠时间证明，要爱宠～</li>
+              <li><strong>理论考核：</strong>参与并通过平台理论考试</li>
+              <li><strong>额外要求：</strong>具备良好的表达沟通能力，严格遵守平台规则</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="highlight-card success" style="text-align:center;">
+          <p style="font-size:var(--font-md);font-weight:600;">🏠🐕❤️</p>
+          <p style="font-weight:600;">离家更要宠宠它</p>
+          <p style="font-size:var(--font-xs);">专业规范 · 安全第一 · 爱心相伴</p>
+          <p style="font-size:var(--font-xs);color:var(--primary);">用爱与责任，呵护每一份信赖</p>
+        </div>
+      `
+    },
+    {
+      id: 2,
+      icon: '📝',
+      title: '基础工作内容',
+      desc: '掌握日常服务的核心内容，成为专业、可靠、有温度的宠物关怀者',
+      checklist: [
+        '理解宠托师三大核心工作内容',
+        '掌握喂养单与遛狗单的服务差异',
+        '明白客户核心需求是"安心"而非仅基础服务',
+        '了解服务流程的关键差异点'
+      ],
+      content: `
+        <div class="chapter-header">
+          <div class="chapter-icon">📝</div>
+          <h2 class="chapter-page-title">宠托师基础工作内容</h2>
+          <p class="chapter-page-desc">掌握日常服务的核心内容，成为专业、可靠、有温度的宠物关怀者</p>
+        </div>
+
+        <div class="highlight-card">
+          <h4>🎯 核心定位：客户要的是"安心"</h4>
+          <p style="font-size:var(--font-sm);">宠托师不仅仅是完成基础服务，更要成为<strong>专业、可靠、有温度</strong>的宠物关怀者。细致的服务反馈，让用户安心、体现专业、避免纠纷。</p>
+        </div>
+
+        <div class="content-card">
+          <h3>📊 服务类型对比</h3>
+          <div class="compare-grid">
+            <div class="compare-item active" style="text-align:left;">
+              <div style="font-weight:700;font-size:var(--font-base);margin-bottom:6px;">🐱 喂养单</div>
+              <div style="font-size:var(--font-xs);color:var(--text-muted);">服务时长：基础服务必须做完，陪玩需计时<strong>10分钟</strong></div>
+              <div style="margin-top:8px;font-size:var(--font-xs);">
+                <span class="tag tag-primary">陪伴宠物玩耍</span>
+                <span class="tag tag-primary">食具清洁</span>
+                <span class="tag tag-primary">添粮换水</span>
+                <span class="tag tag-primary">铲屎换砂</span>
+                <span class="tag tag-primary">环境整理</span>
+              </div>
+            </div>
+            <div class="compare-item" style="text-align:left;">
+              <div style="font-weight:700;font-size:var(--font-base);margin-bottom:6px;">🦮 遛狗单</div>
+              <div style="font-size:var(--font-xs);color:var(--text-muted);">服务时长：<strong>40分钟</strong></div>
+              <div style="margin-top:8px;font-size:var(--font-xs);">
+                <span class="tag tag-primary">外出遛狗</span>
+                <span class="tag tag-primary">食具清洁</span>
+                <span class="tag tag-primary">添粮换水</span>
+                <span class="tag tag-primary">铲屎换砂</span>
+                <span class="tag tag-primary">回家擦脚</span>
+              </div>
+            </div>
+          </div>
+          <div class="highlight-card info" style="margin-top:12px;">
+            <h4>🔑 关键差异</h4>
+            <p style="font-size:var(--font-sm);"><strong>喂养单：</strong>重点观察宠物状态，检查自动设备运行，按需进行陪玩。</p>
+            <p style="font-size:var(--font-sm);margin-top:4px;"><strong>遛狗单：</strong>外出遛狗运动，注意牵引绳GPS，回家擦脚清洁。</p>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>📋 学习检查清单</h3>
+          <p style="font-size:var(--font-xs);color:var(--text-muted);margin-bottom:10px;">完成进度 <strong id="ch2-progress">0/4</strong></p>
+          <ul class="checklist" data-chapter="2">
+            <li onclick="toggleCheck(this, 2)"><span class="checkbox">✓</span><span class="checklist-text">理解宠托师三大核心工作内容</span></li>
+            <li onclick="toggleCheck(this, 2)"><span class="checkbox">✓</span><span class="checklist-text">掌握喂养单与遛狗单的服务差异</span></li>
+            <li onclick="toggleCheck(this, 2)"><span class="checkbox">✓</span><span class="checklist-text">明白客户核心需求是"安心"而非仅基础服务</span></li>
+            <li onclick="toggleCheck(this, 2)"><span class="checkbox">✓</span><span class="checklist-text">了解服务流程的关键差异点</span></li>
+          </ul>
+        </div>
+      `
+    },
+    {
+      id: 3,
+      icon: '💰',
+      title: '收入介绍',
+      desc: '清晰透明的收入标准，助你建立明确的收入预期',
+      checklist: [
+        '了解喂养/遛狗服务价格标准',
+        '掌握叠加收费项目',
+        '熟悉洗护接送/陪诊服务收入',
+        '理解结算与提现规则'
+      ],
+      content: `
+        <div class="chapter-header">
+          <div class="chapter-icon">💰</div>
+          <h2 class="chapter-page-title">收入介绍</h2>
+          <p class="chapter-page-desc">清晰透明的收入标准，助你建立明确的收入预期</p>
+        </div>
+
+        <div class="highlight-card info">
+          <p style="font-size:var(--font-sm);">以下为日常基础费用标准，节假日价格方案将另行通知。具体以接单订单价格为准，空跑费按统一规则收取。<strong>通过平台接单，收入透明有保障。</strong></p>
+        </div>
+
+        <div class="content-card">
+          <h3>🐱🐕 喂养/遛狗服务收入</h3>
+          <div class="price-grid">
+            <div class="price-card"><div class="pet-icon">🐱</div><div class="price-type">上门喂猫</div><div class="price-amount">¥32</div><div class="price-note">加宠物 +4元/只</div></div>
+            <div class="price-card"><div class="pet-icon">🐕</div><div class="price-type">上门喂狗 小型犬</div><div class="price-amount">¥32</div><div class="price-note">加宠物 +4元/只</div></div>
+            <div class="price-card"><div class="pet-icon">🐕‍🦺</div><div class="price-type">上门喂狗 大型犬≥15kg</div><div class="price-amount">¥40</div><div class="price-note">加宠物 +4元/只</div></div>
+            <div class="price-card"><div class="pet-icon">🦮</div><div class="price-type">上门遛狗 小型犬</div><div class="price-amount">¥40</div><div class="price-note">40分钟 +8元/只</div></div>
+            <div class="price-card"><div class="pet-icon">🐕‍🦺</div><div class="price-type">上门遛狗 大型犬≥15kg</div><div class="price-amount">¥48</div><div class="price-note">40分钟 +8元/只</div></div>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>➕ 叠加收费项目</h3>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center;">
+            <div class="highlight-card"><div style="font-size:1.5rem;">🎮</div><div style="font-weight:700;">+8元</div><div style="font-size:var(--font-xs);color:var(--text-muted);">陪玩+10分钟</div></div>
+            <div class="highlight-card warning"><div style="font-size:1.5rem;">⏰</div><div style="font-weight:700;">+15元</div><div style="font-size:var(--font-xs);color:var(--text-muted);">等候>15分钟</div></div>
+            <div class="highlight-card info"><div style="font-size:1.5rem;">🏠</div><div style="font-weight:700;">+24元</div><div style="font-size:var(--font-xs);color:var(--text-muted);">上门熟悉</div></div>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>🏥 洗护接送/陪诊服务收入</h3>
+          <p style="font-size:var(--font-sm);color:var(--text-muted);margin-bottom:10px;">按时长阶梯计费</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;">
+            <div style="padding:12px;background:var(--primary-light);border-radius:var(--radius);"><div style="font-size:var(--font-xs);color:var(--text-muted);">0.5小时</div><div style="font-weight:800;font-size:var(--font-lg);color:var(--primary-dark);">¥32</div></div>
+            <div style="padding:12px;background:var(--primary-light);border-radius:var(--radius);"><div style="font-size:var(--font-xs);color:var(--text-muted);">1小时</div><div style="font-weight:800;font-size:var(--font-lg);color:var(--primary-dark);">¥62</div></div>
+            <div style="padding:12px;background:var(--primary-light);border-radius:var(--radius);"><div style="font-size:var(--font-xs);color:var(--text-muted);">2小时</div><div style="font-weight:800;font-size:var(--font-lg);color:var(--primary-dark);">¥110</div></div>
+            <div style="padding:12px;background:var(--primary-light);border-radius:var(--radius);"><div style="font-size:var(--font-xs);color:var(--text-muted);">3小时</div><div style="font-weight:800;font-size:var(--font-lg);color:var(--primary-dark);">¥148</div></div>
+            <div style="padding:12px;background:var(--primary-light);border-radius:var(--radius);"><div style="font-size:var(--font-xs);color:var(--text-muted);">4小时</div><div style="font-weight:800;font-size:var(--font-lg);color:var(--primary-dark);">¥180</div></div>
+          </div>
+          <p style="font-size:var(--font-xs);color:var(--text-muted);margin-top:8px;">超时费：超时按下个小时段收费，不满30分钟按30分钟计算。示例：1.5小时 = 62 + (110-62)/2 = <strong>86元</strong></p>
+        </div>
+
+        <div class="content-card">
+          <h3>🏦 结算与提现规则</h3>
+          <ol class="step-list">
+            <li><strong>订单完成</strong> → 服务结束后3-5天，系统审核订单完成情况</li>
+            <li><strong>佣金到账</strong> → 审核通过后，佣金自动转入小程序钱包</li>
+            <li><strong>发起提现</strong> → 每周一、周四，当天仅能发起1次，无金额限制</li>
+            <li><strong>到账银行卡</strong> → 提现后3个工作日，遇周末、节假日顺延</li>
+          </ol>
+          <div class="highlight-card success" style="margin-top:10px;">
+            <p style="font-size:var(--font-sm);">💡 <strong>温馨提示：</strong>无提现手续费，发起提现时请确保银行卡信息准确无误。</p>
+          </div>
+        </div>
+      `
+    },
+    {
+      id: 4,
+      icon: '📱',
+      title: '接单流程',
+      desc: '掌握从查看订单到成功接单的全流程操作',
+      checklist: [
+        '熟悉接单4步通用流程',
+        '了解喂养/遛狗订单接单细节',
+        '掌握洗护/陪诊订单细节',
+        '学会通过小程序与用户沟通'
+      ],
+      content: `
+        <div class="chapter-header">
+          <div class="chapter-icon">📱</div>
+          <h2 class="chapter-page-title">接单流程</h2>
+          <p class="chapter-page-desc">掌握从查看订单到成功接单的全流程操作</p>
+        </div>
+
+        <div class="content-card">
+          <h3>📋 通用流程：宠宠它接单小程序操作（4步）</h3>
+          <ol class="step-list">
+            <li><strong>查看订单详情</strong><br><span style="font-size:var(--font-xs);color:var(--text-muted);">点击订单空白处，查看宠物信息、钥匙类型、用户需求备注等核心内容</span></li>
+            <li><strong>确认接单</strong><br><span style="font-size:var(--font-xs);color:var(--text-muted);">接单前仔细核对订单服务需求、时间、地点、价格，确认后点击"确认接单"</span></li>
+            <li><strong>接单成功</strong><br><span style="font-size:var(--font-xs);color:var(--text-muted);">页面显示"接单成功"，进入待服务状态</span></li>
+            <li><strong>查看待做单</strong><br><span style="font-size:var(--font-xs);color:var(--text-muted);">小程序下方【做单】→【进行中】→【选择日期】，查看当天成功接取的所有订单</span></li>
+          </ol>
+        </div>
+
+        <div class="content-card">
+          <h3>🐱🐕 喂养/遛狗订单接单细节</h3>
+          <ul class="checklist" data-chapter="4a">
+            <li onclick="toggleCheck(this, '4a')"><span class="checkbox">✓</span><span class="checklist-text">添加客服微信：长按平台二维码添加，等待客服创建专属服务微信群</span></li>
+            <li onclick="toggleCheck(this, '4a')"><span class="checkbox">✓</span><span class="checklist-text">小程序沟通确认：通过小程序对话框与用户确认需求（切忌私下加微信）</span></li>
+            <li onclick="toggleCheck(this, '4a')"><span class="checkbox">✓</span><span class="checklist-text">确认地址、具体上门时间</span></li>
+            <li onclick="toggleCheck(this, '4a')"><span class="checkbox">✓</span><span class="checklist-text">确认进门方式（钥匙/密码）</span></li>
+            <li onclick="toggleCheck(this, '4a')"><span class="checkbox">✓</span><span class="checklist-text">确认宠物数量及性格</span></li>
+            <li onclick="toggleCheck(this, '4a')"><span class="checkbox">✓</span><span class="checklist-text">确认饮食喂养习惯与狂犬疫苗接种情况</span></li>
+          </ul>
+        </div>
+
+        <div class="content-card">
+          <h3>🏥 洗护/陪诊订单接单细节</h3>
+          <ul class="checklist" data-chapter="4b">
+            <li onclick="toggleCheck(this, '4b')"><span class="checkbox">✓</span><span class="checklist-text">确认订单类型是洗护接送还是外出陪诊</span></li>
+            <li onclick="toggleCheck(this, '4b')"><span class="checkbox">✓</span><span class="checklist-text">确认服务时间并按需预约洗护机构/医院</span></li>
+            <li onclick="toggleCheck(this, '4b')"><span class="checkbox">✓</span><span class="checklist-text">确认接送地址，选择安全出行路线和方式</span></li>
+            <li onclick="toggleCheck(this, '4b')"><span class="checkbox">✓</span><span class="checklist-text">陪诊单：提前预约医院、记录医嘱反馈用户；洗护单：了解洗护项目与取宠时间</span></li>
+            <li onclick="toggleCheck(this, '4b')"><span class="checkbox">✓</span><span class="checklist-text">途中拍摄状态视频，抵达后确认费用归属并反馈</span></li>
+          </ul>
+        </div>
+
+        <div class="highlight-card danger">
+          <h4>⚠️ 重要提示</h4>
+          <p style="font-size:var(--font-sm);">如遇加宠物、加时间等问题，<strong>均联系对应客服解决</strong>。切忌私下加微信沟通，否则平台无法保障宠托师的权益。</p>
+        </div>
+      `
+    },
+    {
+      id: 5,
+      icon: '🏠',
+      title: '服务流程',
+      desc: '规范上门服务标准，确保服务质量',
+      checklist: [
+        '掌握上门服务前必做5件事',
+        '熟悉喂养与遛狗服务流程差异',
+        '学会小程序操作流程',
+        '掌握服务标准话术模板'
+      ],
+      content: `
+        <div class="chapter-header">
+          <div class="chapter-icon">🏠</div>
+          <h2 class="chapter-page-title">服务流程</h2>
+          <p class="chapter-page-desc">规范上门服务标准，确保服务质量</p>
+        </div>
+
+        <div class="content-card">
+          <h3>🚪 上门服务前必做5件事</h3>
+          <ul class="checklist" data-chapter="5a">
+            <li onclick="toggleCheck(this, '5a')"><span class="checkbox">✓</span><span class="checklist-text">备齐工具（手套、鞋套、消毒喷雾）</span></li>
+            <li onclick="toggleCheck(this, '5a')"><span class="checkbox">✓</span><span class="checklist-text">设置闹钟提醒</span></li>
+            <li onclick="toggleCheck(this, '5a')"><span class="checkbox">✓</span><span class="checklist-text">规划上门路线</span></li>
+            <li onclick="toggleCheck(this, '5a')"><span class="checkbox">✓</span><span class="checklist-text">发送标准打招呼消息</span></li>
+            <li onclick="toggleCheck(this, '5a')"><span class="checkbox">✓</span><span class="checklist-text">完成三重确认（地址/时间/进门方式）</span></li>
+          </ul>
+          <div class="highlight-card danger" style="margin-top:10px;">
+            <p style="font-size:var(--font-sm);">🚫 <strong>禁令：工具缺一不可接单！</strong>必备：一次性手套、鞋套、次氯酸宠物消毒喷雾</p>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>📊 服务流程对比</h3>
+          <div class="compare-grid">
+            <div class="compare-item active" style="text-align:left;">
+              <div style="font-weight:700;font-size:var(--font-base);margin-bottom:8px;">🐱 喂养服务流程</div>
+              <div style="font-size:var(--font-xs);line-height:1.8;">
+                <div>📍 <strong>到达</strong>：提前提醒用户，穿好鞋套手套，录制消毒视频</div>
+                <div>🚪 <strong>进门</strong>：拍摄入户视频、粮食剩余、卫生情况</div>
+                <div>🍽️ <strong>服务</strong>：清洗碗具→添粮换水→清理粪便→陪玩→反馈状态</div>
+                <div>📸 <strong>拍摄</strong>：前后对比照各2张，2-3段15-20秒陪玩视频</div>
+                <div>🔒 <strong>离开</strong>：检查设备、归位用品、确认门窗锁好、带走垃圾</div>
+              </div>
+            </div>
+            <div class="compare-item" style="text-align:left;">
+              <div style="font-weight:700;font-size:var(--font-base);margin-bottom:8px;">🦮 遛狗服务流程 <span class="tag tag-warning">40分钟</span></div>
+              <div style="font-size:var(--font-xs);line-height:1.8;">
+                <div>📍 <strong>到达</strong>：同喂养流程</div>
+                <div>🚪 <strong>进门</strong>：同喂养流程</div>
+                <div>🐕 <strong>服务</strong>：清洗碗具→添粮换水→清理粪便→外出遛狗→回家擦脚</div>
+                <div>📸 <strong>拍摄</strong>：同喂养流程，增加遛狗视频记录</div>
+                <div>🔒 <strong>离开</strong>：同喂养流程（无需检查自动猫砂盆）</div>
+              </div>
+            </div>
+          </div>
+          <div class="highlight-card warning" style="margin-top:10px;">
+            <p style="font-size:var(--font-sm);">⚠️ <strong>遛狗前置注意：</strong>出门前检查牵引绳GPS，回家后再次检查！</p>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>📱 小程序操作流程</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center;">
+            <div class="highlight-card"><div style="font-size:1.3rem;">📍</div><div style="font-weight:600;font-size:var(--font-sm);">抵达签到</div><div style="font-size:var(--font-xs);color:var(--text-muted);">上传门口照片+工具佩戴照片</div></div>
+            <div class="highlight-card"><div style="font-size:1.3rem;">📸</div><div style="font-weight:600;font-size:var(--font-sm);">上传对比照</div><div style="font-size:var(--font-xs);color:var(--text-muted);">服务前后对比照各2张</div></div>
+            <div class="highlight-card"><div style="font-size:1.3rem;">🎬</div><div style="font-weight:600;font-size:var(--font-sm);">上传状态</div><div style="font-size:var(--font-xs);color:var(--text-muted);">宠物视频+离户确认照片</div></div>
+            <div class="highlight-card success"><div style="font-size:1.3rem;">✅</div><div style="font-weight:600;font-size:var(--font-sm);">确认完成</div><div style="font-size:var(--font-xs);color:var(--text-muted);">点击确认完成服务</div></div>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>💬 服务标准话术模板</h3>
+          <div class="template-card">
+            <div class="template-label">📩 接单后打招呼（建议复制收藏）</div>
+            <button class="copy-btn" onclick="copyTemplate(this, '家长您好，我是本次为您服务的宠托师，具有多年养宠经验，目前服务过多家，已经基本了解了您提交的注意事项，我们可以在群里随时沟通，本次我会服务好您的毛孩子，若有注意事项，请告知，感谢遇见与信任~')">复制</button>
+            <div class="template-text">家长您好，我是本次为您服务的宠托师，具有多年养宠经验，目前服务过多家，已经基本了解了您提交的注意事项，我们可以在群里随时沟通，本次我会服务好您的毛孩子，若有注意事项，请告知，感谢遇见与信任~</div>
+          </div>
+          <div class="template-card">
+            <div class="template-label">📝 服务结束总结</div>
+            <button class="copy-btn" onclick="copyTemplate(this, '【服务总结】✅添粮添水 ✅清洗食具 ✅清理排泄物 ✅清扫地面，检查门窗，带走垃圾')">复制</button>
+            <div class="template-text">【服务总结】✅添粮添水 ✅清洗食具 ✅清理排泄物 ✅清扫地面，检查门窗，带走垃圾</div>
+          </div>
+          <div class="template-card">
+            <div class="template-label">👤 进群改名</div>
+            <button class="copy-btn" onclick="copyTemplate(this, '宠托师+小名')">复制</button>
+            <div class="template-text">宠托师+小名（如：宠托师小宠）</div>
+          </div>
+        </div>
+
+        <div class="highlight-card danger">
+          <h4>🚫 服务禁止事项</h4>
+          <ul>
+            <li><strong>禁止添加用户微信：</strong>所有沟通必须在小程序/微信群进行</li>
+            <li><strong>禁止线下交易：</strong>否则平台不承担任何责任，触犯规则将解除合作</li>
+          </ul>
+        </div>
+      `
+    },
+    {
+      id: 6,
+      icon: '🚨',
+      title: '异常订单处理',
+      desc: '培养应对突发情况的处理能力，掌握标准沟通话术',
+      checklist: [
+        '了解常见问题处理流程',
+        '掌握抓伤咬伤应急步骤',
+        '熟悉宠物走失处理流程',
+        '掌握标准沟通话术'
+      ],
+      content: `
+        <div class="chapter-header">
+          <div class="chapter-icon">🚨</div>
+          <h2 class="chapter-page-title">异常订单处理</h2>
+          <p class="chapter-page-desc">培养应对突发情况的处理能力，掌握标准沟通话术</p>
+        </div>
+
+        <div class="content-card">
+          <h3>⚠️ 常见问题处理</h3>
+          <div class="highlight-card warning">
+            <h4>⚠️ 联系不上用户/密码错误</h4>
+            <p style="font-size:var(--font-sm);"><strong>提前预防：</strong>接单后提前了解订单细节。<strong>现场处理：</strong>通过小程序电话/微信群语音/短信联系用户；等候超15分钟可自行离开，联系平台客服让用户支付空跑费后再继续服务。</p>
+          </div>
+          <div class="highlight-card info">
+            <h4>💡 猫狗同时存在如何收费</h4>
+            <p style="font-size:var(--font-sm);">按订单价高的品类的多只计算。示例：1只大型犬遛狗+1只猫，按大型犬2只收费。</p>
+          </div>
+          <div class="highlight-card info">
+            <h4>💡 用户如何指定我下次接单</h4>
+            <p style="font-size:var(--font-sm);">告知用户下单时选择【指定宠托师】，可找到曾服务的宠托师，优先派单；长时间不接单则订单流入大厅。</p>
+          </div>
+          <div class="highlight-card warning">
+            <h4>⚠️ 宠物数量与订单不符/增加服务时长</h4>
+            <p style="font-size:var(--font-sm);">群内@客服或电话/微信联系客服，申请增加额外服务费用。按模版告知：订单号:xxxxxxxxxxxxxx，实际有3只宠物需要增加2只费用。</p>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>🩹 抓伤/咬伤应急处理</h3>
+          <ol class="step-list">
+            <li><strong>处理伤口：</strong>流动清水+肥皂水冲洗≥15分钟，碘伏消毒</li>
+            <li><strong>确认疫苗：</strong>询问用户宠物是否接种狂犬疫苗，记录疫苗信息</li>
+            <li><strong>保留证据：</strong>拍摄伤口照片、宠物照片，记录服务时间/地点/宠物品种/用户信息</li>
+            <li><strong>就医要求：</strong>宠物未接种狂犬疫苗/伤口较深，需24小时内接种狂犬疫苗，留存医疗支付凭证</li>
+            <li><strong>报备协商：</strong>主动向用户、平台客服报备，协商赔偿事宜</li>
+          </ol>
+        </div>
+
+        <div class="content-card">
+          <h3>💬 标准话术示例</h3>
+          <div class="template-card">
+            <div class="template-label">🩹 轻微抓伤（无需医疗）</div>
+            <button class="copy-btn" onclick="copyTemplate(this, '')">复制</button>
+            <div class="template-text">XX女士/先生您好！刚才在喂食/互动时，XX（宠物名）不小心抓伤了我的手臂（附照片）。伤口已简单处理，暂无大碍。但根据平台安全协议，需要向您报备此事，后续服务我会更注意防护~</div>
+          </div>
+          <div class="template-card">
+            <div class="template-label">🏥 需医疗费用</div>
+            <button class="copy-btn" onclick="copyTemplate(this, '')">复制</button>
+            <div class="template-text">XX女士/先生，很抱歉打扰您！刚才XX（宠物名）抓伤我伤口较深，需要主人提供一下狂犬疫苗证明（近1年内），如果无法提供，我需要到医院处理伤口并接种狂犬疫苗，我会保留狂犬疫苗费用单据。平台协议中明确宠物伤人需主人承担医疗费用，您看是直接转账还是通过平台协调处理？</div>
+          </div>
+          <div class="highlight-card info">
+            <h4>💡 沟通注意事项</h4>
+            <ul><li>语气礼貌但坚定，提前截图平台协议条款作为依据</li><li>避免情绪化争论，聚焦事实和解决方案</li><li>保留所有沟通记录和医疗凭证</li></ul>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>🔍 宠物走失处理</h3>
+          <div class="highlight-card danger">
+            <h4>⏱️ 黄金30分钟</h4>
+            <ul><li>以走失点为中心，500米半径内重点搜索</li><li>联系物业调监控</li><li>请路人/周边商户帮忙留意</li><li>用宠物熟悉的名称/口令呼唤</li></ul>
+          </div>
+          <div class="highlight-card warning" style="margin-top:10px;">
+            <h4>🕐 72小时关键期</h4>
+            <ul><li>夜间21:00-凌晨安静时段带强光手电搜寻</li><li>在走失点放置宠物食盆/窝垫</li><li>联系本地搜狗队/训犬师</li><li>每日巡查附近流浪动物救助站</li><li>编辑寻宠启事发布至各平台</li></ul>
+          </div>
+          <div class="template-card" style="margin-top:10px;">
+            <div class="template-label">📞 与用户沟通话术（首次通话）</div>
+            <div class="template-text">XX女士/先生，非常抱歉通知您，XX（宠物名）在XX地点附近意外挣脱牵引走失。我们正在全力寻找（已采取XX措施），需要您提供它常去的区域或是否有唤回习惯？</div>
+          </div>
+          <div class="highlight-card danger" style="margin-top:10px;">
+            <h4>💰 赔偿规则</h4>
+            <ul><li>未找回时，先与用户协商按30%-50%赔偿</li><li>长期未寻回按全额赔偿，需用户提供宠物购买凭证</li><li>协商无果可报警处理，也可线下张贴寻宠启事</li><li>平台协助发布寻宠信息，附近宠托师联动留意</li></ul>
+          </div>
+        </div>
+      `
+    },
+    {
+      id: 7,
+      icon: '⭐',
+      title: '优质服务',
+      desc: '前置杜绝客诉，标准化做好每一项服务细节，赢更多订单',
+      checklist: [
+        '了解8大高频投诉问题',
+        '掌握卫生清洁类预防要点',
+        '掌握服务时长与环境安全预防要点',
+        '理解客诉处理原则与流程'
+      ],
+      content: `
+        <div class="chapter-header">
+          <div class="chapter-icon">⭐</div>
+          <h2 class="chapter-page-title">前置杜绝客诉 · 优质服务赢更多订单</h2>
+          <p class="chapter-page-desc">客诉前置预防＞事后处理，标准化做好每一项服务细节</p>
+        </div>
+
+        <div class="highlight-card">
+          <h4>🎯 核心原则</h4>
+          <p style="font-size:var(--font-sm);">所有服务环节按标准操作、留证，从源头规避高频客诉问题。<strong>优质服务会提升用户复购与指定率，订单自然更多。</strong></p>
+        </div>
+
+        <div class="content-card">
+          <h3>⚠️ 高频投诉问题梳理（8大核心问题）</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div class="rule-card red-line" style="flex-direction:column;"><div style="font-weight:700;font-size:var(--font-sm);">🧹 卫生清洁不到位</div><span class="tag tag-danger">高频</span><div style="font-size:var(--font-xs);color:var(--text-muted);">未清洁猫砂盆，或未清理猫粮周边的卫生</div></div>
+            <div class="rule-card red-line" style="flex-direction:column;"><div style="font-weight:700;font-size:var(--font-sm);">🤢 呕吐物未处理</div><span class="tag tag-danger">高频</span><div style="font-size:var(--font-xs);color:var(--text-muted);">猫咪出现呕吐情况，未及时处理呕吐物及周边污渍</div></div>
+            <div class="rule-card red-line" style="flex-direction:column;"><div style="font-weight:700;font-size:var(--font-sm);">⏱️ 服务时长不足</div><span class="tag tag-danger">高频</span><div style="font-size:var(--font-xs);color:var(--text-muted);">实际服务时长未达到平台约定标准</div></div>
+            <div class="rule-card red-line" style="flex-direction:column;"><div style="font-weight:700;font-size:var(--font-sm);">🚪 环境安全问题</div><span class="tag tag-danger">高频</span><div style="font-size:var(--font-xs);color:var(--text-muted);">将猫单独关在封闭空间；忘记关闭门窗、灯具</div></div>
+            <div class="rule-card severe" style="flex-direction:column;"><div style="font-weight:700;font-size:var(--font-sm);">💬 沟通态度恶劣</div><span class="tag tag-warning">高频</span><div style="font-size:var(--font-xs);color:var(--text-muted);">服务过程中与用户沟通态度恶劣</div></div>
+            <div class="rule-card severe" style="flex-direction:column;"><div style="font-weight:700;font-size:var(--font-sm);">📦 物品未归位</div><div style="font-size:var(--font-xs);color:var(--text-muted);">喂食后猫粮零食等包装未密封，未归位</div></div>
+            <div class="rule-card severe" style="flex-direction:column;"><div style="font-weight:700;font-size:var(--font-sm);">🗑️ 垃圾未带走</div><div style="font-size:var(--font-xs);color:var(--text-muted);">宠物垃圾、生活垃圾未全部带走</div></div>
+            <div class="rule-card severe" style="flex-direction:column;"><div style="font-weight:700;font-size:var(--font-sm);">💧 设备未检查</div><div style="font-size:var(--font-xs);color:var(--text-muted);">未检查自动饮水机运行状态</div></div>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>🛡️ 客诉前置预防实操要点</h3>
+          <p style="font-size:var(--font-xs);color:var(--text-muted);margin-bottom:12px;">所有动作需融入日常服务，形成操作习惯，<strong>关键步骤拍照/视频留证</strong>，既规避客诉，也可作为服务凭证。</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div class="highlight-card"><h4>🧹 卫生清洁类</h4><p style="font-size:var(--font-xs);">对应问题1,2 → 擦拭猫砂盆周边需拍照；清理呕吐物/排泄物前后各拍1张；异常情况及时群内告知</p></div>
+            <div class="highlight-card"><h4>⏱️ 服务时长类</h4><p style="font-size:var(--font-xs);">对应问题3 → 严格执行标准时长；缩短时长需群内文字确认截图；拍摄陪玩/遛狗视频作为时长佐证</p></div>
+            <div class="highlight-card"><h4>📦 物品归位类</h4><p style="font-size:var(--font-xs);">对应问题4 → 密封包装后归位拍1张确认；食碗水碗玩具等按原位置摆放</p></div>
+            <div class="highlight-card"><h4>🗑️ 垃圾处理类</h4><p style="font-size:var(--font-xs);">对应问题5 → 所有垃圾装袋密封拍垃圾袋照片；群内反馈"垃圾已全部带走"</p></div>
+            <div class="highlight-card warning"><h4>🚪 环境检查类</h4><p style="font-size:var(--font-xs);">对应问题6 → 禁止关宠物入封闭空间（除非用户明确要求）；双重检查门窗电器、门窗关闭照片、按2下门把手确认锁好</p></div>
+            <div class="highlight-card warning"><h4>💧 设备检查类</h4><p style="font-size:var(--font-xs);">对应问题7 → 上门先检查饮水机喂食器猫砂盆；故障及时反馈让用户远程确认；离开前再次检查</p></div>
+            <div class="highlight-card info"><h4>💬 沟通态度类</h4><p style="font-size:var(--font-xs);">对应问题8 → 全程礼貌用语；耐心倾听不争执；无法达成一致立即联系平台客服介入协调</p></div>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>📋 官方客诉处理原则</h3>
+          <ol class="step-list">
+            <li><strong>积极沟通，主动解决</strong> — 收到客诉后第一时间微信群内回应，不逃避不推诿；优先满足合理诉求</li>
+            <li><strong>重大损失，协商赔付</strong> — 因服务失误导致重大财产损失，需积极协商赔付方案</li>
+            <li><strong>及时报备，配合平台</strong> — 10分钟内联系平台专属客服，告知客诉原因与用户诉求</li>
+            <li><strong>总结整改，避免再犯</strong> — 针对服务疏漏总结整改；同一客诉累计3次将按严重违规封号</li>
+          </ol>
+        </div>
+
+        <div class="highlight-card danger">
+          <p style="font-size:var(--font-sm);">⚠️ <strong>重要提醒：</strong>若因服务疏漏出现客诉，宠托师需主动、积极处理，避免客诉升级。平台将根据客诉严重程度及处理结果，按平台规则判定责任。</p>
+        </div>
+      `
+    },
+    {
+      id: 8,
+      icon: '📜',
+      title: '平台规则',
+      desc: '了解平台服务规则，保障宠托师与平台互利共赢、长久发展',
+      checklist: [
+        '了解8大红线违规行为',
+        '掌握6类严重违规及处罚',
+        '熟悉5类一般违规及处罚',
+        '理解违规处理梯度机制'
+      ],
+      content: `
+        <div class="chapter-header">
+          <div class="chapter-icon">📜</div>
+          <h2 class="chapter-page-title">平台规则</h2>
+          <p class="chapter-page-desc">了解平台服务规则，保障宠托师与平台互利共赢、长久发展</p>
+        </div>
+
+        <p style="font-size:var(--font-xs);color:var(--text-muted);margin-bottom:16px;">所有违规行为按实际情况处罚，具体以接单小程序内展示为准。请务必仔细阅读并遵守以下规则。</p>
+
+        <div class="content-card">
+          <h3>🚫 红线违规行为</h3>
+          <span class="rule-badge danger">永久封号</span>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
+            <div class="rule-card red-line" style="flex-direction:column;"><div style="font-size:1.2rem;">👤</div><div style="font-weight:700;font-size:var(--font-sm);">非本人服务</div><div style="font-size:var(--font-xs);color:var(--text-muted);">将订单转交/委托给他人服务</div></div>
+            <div class="rule-card red-line" style="flex-direction:column;"><div style="font-size:1.2rem;">💰</div><div style="font-weight:700;font-size:var(--font-sm);">私下交易</div><div style="font-size:var(--font-xs);color:var(--text-muted);">诱导/同意平台外交易</div></div>
+            <div class="rule-card red-line" style="flex-direction:column;"><div style="font-size:1.2rem;">🏠</div><div style="font-weight:700;font-size:var(--font-sm);">偷盗/财产损失</div><div style="font-size:var(--font-xs);color:var(--text-muted);">带走财物或未锁门导致损失</div></div>
+            <div class="rule-card red-line" style="flex-direction:column;"><div style="font-size:1.2rem;">🐾</div><div style="font-weight:700;font-size:var(--font-sm);">危害宠物安全</div><div style="font-size:var(--font-xs);color:var(--text-muted);">虐待/粗暴对待/恐吓宠物</div></div>
+            <div class="rule-card red-line" style="flex-direction:column;"><div style="font-size:1.2rem;">⚠️</div><div style="font-weight:700;font-size:var(--font-sm);">服务事故</div><div style="font-size:var(--font-xs);color:var(--text-muted);">导致宠物受伤/走失/生病</div></div>
+            <div class="rule-card red-line" style="flex-direction:column;"><div style="font-size:1.2rem;">📸</div><div style="font-weight:700;font-size:var(--font-sm);">虚假服务</div><div style="font-size:var(--font-xs);color:var(--text-muted);">未上门却伪造图片视频</div></div>
+            <div class="rule-card red-line" style="flex-direction:column;"><div style="font-size:1.2rem;">🚫</div><div style="font-weight:700;font-size:var(--font-sm);">弃单行为</div><div style="font-size:var(--font-xs);color:var(--text-muted);">现场弃单/1小时内弃单</div></div>
+            <div class="rule-card red-line" style="flex-direction:column;"><div style="font-size:1.2rem;">🚨</div><div style="font-weight:700;font-size:var(--font-sm);">违法行为</div><div style="font-size:var(--font-xs);color:var(--text-muted);">骚扰恐吓/泄露信息等</div></div>
+          </div>
+          <div class="highlight-card danger" style="margin-top:12px;text-align:center;">
+            <p style="font-weight:700;">红线违规 = 永久封号 + 追究法律/经济赔偿 + 视情况全平台公告</p>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>⚠️ 严重违规行为</h3>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="rule-card severe">
+              <div class="rule-icon">📋</div>
+              <div class="rule-content">
+                <h4>服务缺项</h4>
+                <p>未完成核心服务（未洗碗/添粮/清理排泄物等）</p>
+                <div><span class="rule-badge warning">1次:退款50%+封号3天</span> <span class="rule-badge warning">2次:全额退款+封号7天</span> <span class="rule-badge danger">3次:永久封号</span></div>
+              </div>
+            </div>
+            <div class="rule-card severe">
+              <div class="rule-icon">🧤</div>
+              <div class="rule-content">
+                <h4>卫生问题</h4>
+                <p>未穿戴鞋套/手套、未使用消毒喷雾</p>
+                <div><span class="rule-badge warning">1次:退款50%+封号3天</span> <span class="rule-badge warning">2次:全额退款+封号7天</span> <span class="rule-badge danger">3次:永久封号</span></div>
+              </div>
+            </div>
+            <div class="rule-card severe">
+              <div class="rule-icon">🚷</div>
+              <div class="rule-content">
+                <h4>行为不当</h4>
+                <p>未经允许坐用户沙发、穿用户拖鞋、使用用户物品、拍照超出范围</p>
+                <div><span class="rule-badge warning">1次:退款50%+封号3天</span> <span class="rule-badge warning">2次:全额退款+封号7天</span> <span class="rule-badge danger">3次:永久封号</span></div>
+              </div>
+            </div>
+            <div class="rule-card severe">
+              <div class="rule-icon">🔍</div>
+              <div class="rule-content">
+                <h4>细节疏忽</h4>
+                <p>忘记检查宠物饮水/出粮/自动猫砂机运行；未检查门关闭情况</p>
+                <div><span class="rule-badge warning">退款50%/全额+封号7天</span> <span class="rule-badge danger">累计3次:永久封号</span></div>
+              </div>
+            </div>
+            <div class="rule-card severe">
+              <div class="rule-icon">😤</div>
+              <div class="rule-content">
+                <h4>态度恶劣</h4>
+                <p>与用户发生争执、使用不礼貌用语</p>
+                <div><span class="rule-badge warning">1次:退款50%+封号3天</span> <span class="rule-badge warning">2次:全额退款+封号7天</span> <span class="rule-badge danger">3次:永久封号</span></div>
+              </div>
+            </div>
+            <div class="rule-card severe">
+              <div class="rule-icon">💸</div>
+              <div class="rule-content">
+                <h4>乱收费用</h4>
+                <p>坐地起价、线下收费；费用不合理/未提前告知</p>
+                <div><span class="rule-badge warning">退回费用:封号7天</span> <span class="rule-badge warning">未退回:封号14天</span> <span class="rule-badge danger">累计3次:永久封号</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>📝 一般违规行为</h3>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="rule-card minor">
+              <div class="rule-icon">⏰</div>
+              <div class="rule-content"><h4>服务迟到</h4><p>迟到＞30分钟且未提前沟通</p><div><span class="rule-badge info">1次:警告+扣除15%</span> <span class="rule-badge warning">2次:封号3天</span> <span class="rule-badge danger">3次:永久封号</span></div></div>
+            </div>
+            <div class="rule-card minor">
+              <div class="rule-icon">⏱️</div>
+              <div class="rule-content"><h4>服务时长不足</h4><p>未达约定时长/未征得同意提前离开</p><div><span class="rule-badge warning">退款+封号7天</span> <span class="rule-badge danger">累计3次:永久封号</span></div></div>
+            </div>
+            <div class="rule-card minor">
+              <div class="rule-icon">📷</div>
+              <div class="rule-content"><h4>反馈不足</h4><p>图片/视频数量严重不足；未按模板总结汇报</p><div><span class="rule-badge info">1次:警告</span> <span class="rule-badge info">2次:封号3天</span> <span class="rule-badge warning">3次:封号7天</span></div></div>
+            </div>
+            <div class="rule-card minor">
+              <div class="rule-icon">📝</div>
+              <div class="rule-content"><h4>未按用户要求操作</h4><p>未按要求喂养；宠物用品位置摆放错误</p><div><span class="rule-badge info">1次:警告</span> <span class="rule-badge info">2次:封号3天</span> <span class="rule-badge warning">3次:封号7天</span></div></div>
+            </div>
+            <div class="rule-card minor">
+              <div class="rule-icon">❌</div>
+              <div class="rule-content"><h4>取消订单</h4><p>接单后因个人原因取消；引导用户取消订单</p><div><span class="rule-badge info">>24小时:警告</span> <span class="rule-badge warning"><24小时:封号3-7天</span> <span class="rule-badge danger">累计3次:永久封号</span></div></div>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    {
+      id: 9,
+      icon: '🎒',
+      title: '接单准备',
+      desc: '完成注册认证和接单前准备工作，开启接单之旅',
+      checklist: [
+        '了解平台注册流程5步骤',
+        '学会设置接单地址',
+        '掌握接单必备三项',
+        '完成工具准备检查'
+      ],
+      content: `
+        <div class="chapter-header">
+          <div class="chapter-icon">🎒</div>
+          <h2 class="chapter-page-title">接单准备</h2>
+          <p class="chapter-page-desc">完成注册认证和接单前准备工作，开启接单之旅</p>
+        </div>
+
+        <div class="content-card">
+          <h3>1️⃣ 平台注册流程</h3>
+          <ol class="step-list">
+            <li><strong>扫码进入小程序</strong><br><span style="font-size:var(--font-xs);color:var(--text-muted);">微信扫码进入【宠托师接单】小程序</span></li>
+            <li><strong>填写个人资料</strong><br><span style="font-size:var(--font-xs);color:var(--text-muted);">点击【去认证】，填写个人真实资料（资料全程保密）</span></li>
+            <li><strong>参与理论考试</strong><br><span style="font-size:var(--font-xs);color:var(--text-muted);">提交资料后参与平台理论考试</span></li>
+            <li><strong>提交养宠证明</strong><br><span style="font-size:var(--font-xs);color:var(--text-muted);">等待客服联系（一般≤3个工作日），提交养宠时间证明或接单经验证明</span></li>
+            <li><strong>关注公众号</strong><br><span style="font-size:var(--font-xs);color:var(--text-muted);">关注平台公众号并置顶，完成认证</span></li>
+          </ol>
+        </div>
+
+        <div class="content-card">
+          <h3>2️⃣ 设置接单地址</h3>
+          <div class="highlight-card info">
+            <h4>📍 接单地址核心作用</h4>
+            <p style="font-size:var(--font-sm);">平台按该地址展示订单距离，而非实时位置。<strong>请务必填写准确的常用地址。</strong></p>
+            <ul style="margin-top:6px;">
+              <li>可查看距离接单地址 0-50km 的所有订单</li>
+              <li>老用户指定宠托师，无距离限制</li>
+              <li>若订单距离未展示，需重新填写接单地址</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>3️⃣ 接单必备三项</h3>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center;">
+            <div class="highlight-card"><div style="font-size:1.8rem;">📌</div><div style="font-weight:600;font-size:var(--font-sm);">置顶小程序</div><div style="font-size:var(--font-xs);color:var(--text-muted);">微信置顶+收藏小程序</div></div>
+            <div class="highlight-card"><div style="font-size:1.8rem;">🔔</div><div style="font-weight:600;font-size:var(--font-sm);">关注公众号</div><div style="font-size:var(--font-xs);color:var(--text-muted);">微信关注+置顶公众号</div></div>
+            <div class="highlight-card"><div style="font-size:1.8rem;">🧰</div><div style="font-weight:600;font-size:var(--font-sm);">准备工具</div><div style="font-size:var(--font-xs);color:var(--text-muted);">必备+建议工具</div></div>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>4️⃣ 工具准备检查清单</h3>
+          <p style="font-size:var(--font-xs);color:var(--text-muted);margin-bottom:10px;">准备进度 <strong id="ch9-progress">0/7</strong></p>
+          <ul class="checklist" data-chapter="9">
+            <li onclick="toggleCheck(this, 9)"><span class="checkbox">✓</span><span class="checklist-text"><span class="tag tag-danger">必备</span> 一次性手套</span></li>
+            <li onclick="toggleCheck(this, 9)"><span class="checkbox">✓</span><span class="checklist-text"><span class="tag tag-danger">必备</span> 一次性鞋套</span></li>
+            <li onclick="toggleCheck(this, 9)"><span class="checkbox">✓</span><span class="checklist-text"><span class="tag tag-danger">必备</span> 次氯酸宠物消毒喷雾</span></li>
+            <li onclick="toggleCheck(this, 9)"><span class="checkbox">✓</span><span class="checklist-text"><span class="tag tag-primary">建议</span> 口罩</span></li>
+            <li onclick="toggleCheck(this, 9)"><span class="checkbox">✓</span><span class="checklist-text"><span class="tag tag-primary">建议</span> 遛狗绳/逗猫笔</span></li>
+            <li onclick="toggleCheck(this, 9)"><span class="checkbox">✓</span><span class="checklist-text"><span class="tag tag-primary">建议</span> 垃圾袋</span></li>
+            <li onclick="toggleCheck(this, 9)"><span class="checkbox">✓</span><span class="checklist-text"><span class="tag tag-primary">建议</span> 充电宝</span></li>
+          </ul>
+          <div class="highlight-card danger" style="margin-top:10px;">
+            <p style="font-size:var(--font-sm);">⚠️ <strong>注意：</strong>一次性手套、鞋套、次氯酸宠物消毒喷雾为必备工具，缺一不可接单！</p>
+          </div>
+        </div>
+      `
+    },
+    {
+      id: 10,
+      icon: '🎉',
+      title: '课程结尾',
+      desc: '完成培训认证，通过测验检验学习成果',
+      checklist: [],
+      content: `
+        <div class="chapter-header">
+          <div class="chapter-icon">🎉</div>
+          <h2 class="chapter-page-title">恭喜完成培训！</h2>
+          <p class="chapter-page-desc">您已完成宠宠它宠托师培训课程的所有内容</p>
+        </div>
+
+        <div class="content-card">
+          <h3>📝 规则自测小测验</h3>
+          <p style="font-size:var(--font-sm);color:var(--text-muted);margin-bottom:10px;">完成测验后方可保存学习记录。<strong>共5道题，每题20分，满分100分。</strong></p>
+          <button class="btn btn-primary" onclick="startQuiz()" style="width:100%;">📝 开始测验</button>
+        </div>
+
+        <div class="completion-hero" id="completionSection" style="display:none;">
+          <div class="completion-icon">🏆</div>
+          <h2 class="completion-title">培训完成！</h2>
+          <p style="color:var(--text-secondary);">离家更要宠宠它，成为<strong>专业、可靠、有温度</strong>的宠托师</p>
+          <div style="display:flex;gap:10px;justify-content:center;margin-top:12px;">
+            <span class="tag tag-primary">专业</span>
+            <span class="tag tag-success">可靠</span>
+            <span class="tag tag-warning">有温度</span>
+          </div>
+        </div>
+
+        <div class="completion-stats" id="completionStats" style="display:none;">
+          <div class="completion-stat"><div class="num" id="statCompleted">0</div><div class="label">已完成章节</div></div>
+          <div class="completion-stat"><div class="num" id="statScore">0</div><div class="label">测验得分</div></div>
+          <div class="completion-stat"><div class="num" id="statRate">0%</div><div class="label">完成率</div></div>
+        </div>
+
+        <div class="highlight-card" style="text-align:center;">
+          <p style="font-style:italic;color:var(--text-secondary);">"感谢您观看，欢迎您加入【宠宠它】，用爱与责任呵护每一份信赖！"</p>
+          <p style="font-weight:600;color:var(--primary);margin-top:6px;">—— 宠宠它团队</p>
+        </div>
+      `
+    }
+  ],
+  quiz: [
+    { q: '以下哪种行为属于红线违规，会导致永久封号？', options: ['服务迟到30分钟', '将订单转交给未注册的他人服务', '忘记上传服务照片', '未按用户要求喂养'], answer: 1 },
+    { q: '严重违规的处罚机制是什么？', options: ['第一次警告，第二次封号3天，第三次永久封号', '第一次退款50%+封号3天，第二次全额退款+封号7天，第三次永久封号', '直接永久封号', '每次只扣除当次服务费'], answer: 1 },
+    { q: '如果宠托师诱导用户进行平台外交易，会有什么后果？', options: ['警告处理', '封号7天', '永久封号+视情况全平台公告', '扣除当月收入'], answer: 2 },
+    { q: '一般违规累计几次会导致永久封号？', options: ['3次', '5次', '7次', '10次'], answer: 0 },
+    { q: '以下哪种情况属于服务缺项的严重违规？', options: ['服务迟到了15分钟', '未完成核心服务（未洗碗/添粮/清理排泄物）', '反馈照片数量不足', '与用户沟通语气不够热情'], answer: 1 }
+  ]
+};
+
+// ===== STATE =====
+const STORAGE_KEY = 'pet_training_progress';
+let state = loadState();
+let currentChapter = null;
+let currentQuizIndex = 0;
+let quizAnswers = [];
+let quizDone = false;
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      return {
+        completedChapters: parsed.completedChapters || [],
+        chapterChecklists: parsed.chapterChecklists || {},
+        quizScore: parsed.quizScore || 0,
+        quizDone: parsed.quizDone || false
+      };
+    }
+  } catch (e) {}
+  return { completedChapters: [], chapterChecklists: {}, quizScore: 0, quizDone: false };
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (e) {}
+}
+
+// ===== NAVIGATION =====
+function showPage(pageId) {
+  document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById('page-' + pageId);
+  if (page) page.classList.add('active');
+  window.scrollTo(0, 0);
+  updateBottomNav(pageId);
+}
+
+function updateBottomNav(pageId) {
+  const prevBtn = document.getElementById('btnPrev');
+  const nextBtn = document.getElementById('btnNext');
+
+  if (pageId === 'home') {
+    prevBtn.style.display = 'none';
+    nextBtn.textContent = '开始学习 →';
+    nextBtn.className = 'btn btn-primary';
+    nextBtn.onclick = () => goToChapter(1);
+  } else if (pageId === 'chapter' && currentChapter) {
+    prevBtn.style.display = currentChapter > 1 ? '' : 'none';
+    prevBtn.textContent = '← 上一章';
+    prevBtn.className = 'btn btn-secondary';
+    prevBtn.onclick = () => goToChapter(currentChapter - 1);
+
+    if (currentChapter < 10) {
+      nextBtn.textContent = '下一章 →';
+      nextBtn.className = 'btn btn-primary';
+      nextBtn.onclick = () => goToChapter(currentChapter + 1);
+    } else {
+      nextBtn.textContent = '🎉 完成培训';
+      nextBtn.className = 'btn btn-primary';
+      nextBtn.onclick = () => goToChapter(10);
+    }
+    nextBtn.style.display = '';
+  } else if (pageId === 'quiz') {
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+  } else if (pageId === 'completion') {
+    prevBtn.style.display = '';
+    prevBtn.textContent = '← 返回首页';
+    prevBtn.className = 'btn btn-secondary';
+    prevBtn.onclick = () => showHome();
+    nextBtn.style.display = '';
+    nextBtn.textContent = '🔄 重新学习';
+    nextBtn.className = 'btn btn-outline';
+    nextBtn.onclick = resetAll;
+  }
+}
+
+function goToChapter(num) {
+  currentChapter = num;
+  const ch = courseData.chapters[num - 1];
+  document.getElementById('page-chapter').innerHTML = ch.content;
+  showPage('chapter');
+  restoreChecklistState(num);
+  updateProgress();
+
+  // Update progress for specific chapter checklists
+  setTimeout(() => updateChChecklistProgress(num), 100);
+}
+
+function showHome() {
+  currentChapter = null;
+  showPage('home');
+  renderHome();
+  updateProgress();
+}
+
+// ===== HOME PAGE RENDER =====
+function renderHome() {
+  const completed = state.completedChapters.length;
+  const total = courseData.chapters.length;
+  const pct = Math.round((completed / total) * 100);
+
+  let chapterCards = '';
+  courseData.chapters.forEach((ch, i) => {
+    const num = i + 1;
+    const isComplete = state.completedChapters.includes(num);
+    chapterCards += `
+      <div class="chapter-card ${isComplete ? 'completed' : ''}" onclick="goToChapter(${num})">
+        <div class="chapter-num">${isComplete ? '✓' : num}</div>
+        <div class="chapter-info">
+          <h4>${ch.icon} ${ch.title}</h4>
+          <p>${ch.desc}</p>
+        </div>
+        <span class="chapter-arrow">→</span>
+      </div>
+    `;
+  });
+
+  let encouragement = '';
+  if (pct === 0) encouragement = '开始你的宠托师之旅吧！💪';
+  else if (pct < 30) encouragement = '好的开始是成功的一半，继续加油！🌟';
+  else if (pct < 60) encouragement = '学得不错，继续保持节奏！📚';
+  else if (pct < 100) encouragement = '胜利在望，就差最后几章了！🔥';
+  else encouragement = '太棒了！全部完成！🏆';
+
+  document.getElementById('page-home').innerHTML = `
+    <div class="home-hero">
+      <div class="hero-logo">🐾</div>
+      <h1 class="hero-title">专业宠托师培训</h1>
+      <p class="hero-subtitle">离家更要宠宠它</p>
+      <p class="hero-desc">用爱与责任，呵护每一份信赖</p>
+    </div>
+
+    <div class="learning-progress-card">
+      <div class="header"><h3>📊 学习进度</h3><span style="font-size:var(--font-sm);color:var(--text-muted);">${completed} / ${total} 章节</span></div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-num">${completed}</div><div class="stat-label">已完成章节</div></div>
+        <div class="stat-item"><div class="stat-num">${state.quizDone ? state.quizScore : '-'}</div><div class="stat-label">测验得分</div></div>
+        <div class="stat-item"><div class="stat-num">${pct}%</div><div class="stat-label">完成率</div></div>
+      </div>
+      <div class="encourage-text">${encouragement}</div>
+    </div>
+
+    <h2 class="section-title">📚 培训大纲</h2>
+    <div class="chapter-list">${chapterCards}</div>
+
+    <div class="tips-card">
+      <h3>💡 学习提示</h3>
+      <ul>
+        <li><span>建议按顺序完成每个章节的学习</span></li>
+        <li><span>点击章节内清单项可标记完成状态</span></li>
+        <li><span>随时可以返回已学章节复习</span></li>
+        <li><span>完成测验后可查看最终成绩</span></li>
+      </ul>
+    </div>
+
+    <div class="app-footer">
+      <p>🏠🐕❤️ <span class="brand">宠宠它</span> · 专业规范 · 安全第一 · 爱心相伴</p>
+    </div>
+  `;
+}
+
+// ===== CHECKLIST =====
+function toggleCheck(el, chapterKey) {
+  el.classList.toggle('checked');
+  saveChecklistState(chapterKey);
+  updateChChecklistProgress(chapterKey);
+
+  // Check if all checklists for this chapter are complete
+  checkChapterCompletion(chapterKey);
+}
+
+function saveChecklistState(chapterKey) {
+  const chapterId = typeof chapterKey === 'number' ? chapterKey : currentChapter;
+  const container = document.querySelector(`[data-chapter="${chapterKey}"]`);
+  if (!container) return;
+
+  const items = container.querySelectorAll('li');
+  const checked = [];
+  items.forEach((li, i) => {
+    if (li.classList.contains('checked')) checked.push(i);
+  });
+
+  if (!state.chapterChecklists) state.chapterChecklists = {};
+  state.chapterChecklists[chapterKey] = checked;
+  saveState();
+}
+
+function restoreChecklistState(chapterNum) {
+  setTimeout(() => {
+    // Restore all checklists on the page
+    document.querySelectorAll('.checklist').forEach(list => {
+      const key = list.getAttribute('data-chapter');
+      if (!key) return;
+      const checked = state.chapterChecklists?.[key] || [];
+      const items = list.querySelectorAll('li');
+      items.forEach((li, i) => {
+        if (checked.includes(i)) li.classList.add('checked');
+      });
+      updateChChecklistProgress(key);
+    });
+  }, 200);
+}
+
+function updateChChecklistProgress(key) {
+  const container = document.querySelector(`[data-chapter="${key}"]`);
+  if (!container) return;
+
+  const items = container.querySelectorAll('li');
+  const checked = container.querySelectorAll('li.checked');
+  const total = items.length;
+  const done = checked.length;
+
+  // Update progress text
+  const progressEl = document.getElementById(`ch${key}-progress`);
+  if (progressEl) progressEl.textContent = `${done}/${total}`;
+
+  if (typeof key === 'number') {
+    const ch9Progress = document.getElementById('ch9-progress');
+    if (ch9Progress) ch9Progress.textContent = `${done}/${total}`;
+  }
+
+  // Check if chapter should be marked complete
+  if (total > 0 && done === total) {
+    checkChapterCompletion(key);
+  }
+}
+
+function checkChapterCompletion(chapterKey) {
+  const chapterNum = typeof chapterKey === 'number' ? chapterKey : currentChapter;
+  if (!chapterNum) return;
+
+  // Check all checklists in this chapter
+  const allChecklists = document.querySelectorAll(`.checklist`);
+  let allChecked = true;
+  let hasAny = false;
+
+  allChecklists.forEach(list => {
+    const key = list.getAttribute('data-chapter');
+    if (!key) return;
+    // For chapter-specific checklists
+    const keyNum = parseInt(key);
+    const chStr = String(chapterNum);
+
+    // Check if this checklist belongs to this chapter
+    if (key === chStr || key.startsWith(chStr)) {
+      hasAny = true;
+      const items = list.querySelectorAll('li');
+      const checked = list.querySelectorAll('li.checked');
+      if (checked.length < items.length) allChecked = false;
+    }
+  });
+
+  if (hasAny && allChecked && !state.completedChapters.includes(chapterNum)) {
+    state.completedChapters.push(chapterNum);
+    saveState();
+    updateProgress();
+    showToast(`✅ 第 ${chapterNum} 章已完成！`);
+    if (currentChapter === chapterNum && currentChapter < 10) {
+      setTimeout(() => {
+        const nextBtn = document.getElementById('btnNext');
+        if (nextBtn) nextBtn.textContent = '✅ 已完成，下一章 →';
+      }, 100);
+    }
+  }
+}
+
+// ===== QUIZ =====
+function startQuiz() {
+  currentQuizIndex = 0;
+  quizAnswers = new Array(courseData.quiz.length).fill(null);
+  showPage('quiz');
+  renderQuizQuestion();
+}
+
+function renderQuizQuestion() {
+  const quiz = courseData.quiz;
+  if (currentQuizIndex >= quiz.length) {
+    finishQuiz();
+    return;
+  }
+
+  const q = quiz[currentQuizIndex];
+  const optionsHtml = q.options.map((opt, i) => {
+    let cls = 'quiz-option';
+    if (quizAnswers[currentQuizIndex] !== null) {
+      if (i === q.answer) cls += ' correct';
+      else if (i === quizAnswers[currentQuizIndex] && i !== q.answer) cls += ' wrong';
+    }
+    const letters = ['A', 'B', 'C', 'D'];
+    return `
+      <button class="${cls}" onclick="answerQuiz(${i})" ${quizAnswers[currentQuizIndex] !== null ? 'disabled' : ''}>
+        <span class="option-letter">${letters[i]}</span>
+        <span>${opt}</span>
+      </button>
+    `;
+  }).join('');
+
+  let feedbackHtml = '';
+  if (quizAnswers[currentQuizIndex] !== null) {
+    const isCorrect = quizAnswers[currentQuizIndex] === q.answer;
+    feedbackHtml = `
+      <div class="quiz-feedback show ${isCorrect ? 'correct' : 'wrong'}">
+        ${isCorrect ? '✅ 回答正确！' : '❌ 回答错误，正确答案是 ' + (['A','B','C','D'][q.answer]) + '. ' + q.options[q.answer]}
+      </div>
+      <button class="btn btn-primary" onclick="nextQuizQuestion()" style="width:100%;margin-top:12px;">
+        ${currentQuizIndex < quiz.length - 1 ? '下一题 →' : '查看结果'}
+      </button>
+    `;
+  }
+
+  document.getElementById('page-quiz').innerHTML = `
+    <div class="chapter-header" style="padding-top:8px;">
+      <button class="back-btn" onclick="goToChapter(10)">← 返回课程</button>
+      <h2 style="font-size:var(--font-lg);font-weight:700;">📝 规则自测小测验</h2>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-progress">第 ${currentQuizIndex + 1} / ${quiz.length} 题</div>
+      <div class="quiz-question">${currentQuizIndex + 1}. ${q.q}</div>
+      <div class="quiz-options">${optionsHtml}</div>
+      ${feedbackHtml}
+    </div>
+  `;
+}
+
+function answerQuiz(index) {
+  if (quizAnswers[currentQuizIndex] !== null) return;
+  quizAnswers[currentQuizIndex] = index;
+  renderQuizQuestion();
+}
+
+function nextQuizQuestion() {
+  currentQuizIndex++;
+  if (currentQuizIndex >= courseData.quiz.length) {
+    finishQuiz();
+  } else {
+    renderQuizQuestion();
+  }
+}
+
+function finishQuiz() {
+  const quiz = courseData.quiz;
+  let score = 0;
+  quizAnswers.forEach((ans, i) => {
+    if (ans === quiz[i].answer) score += 20;
+  });
+
+  state.quizScore = score;
+  state.quizDone = true;
+  saveState();
+  quizDone = true;
+
+  // Make sure chapter 10 is marked complete
+  if (!state.completedChapters.includes(10)) {
+    state.completedChapters.push(10);
+    saveState();
+  }
+
+  showCompletion();
+}
+
+function showCompletion() {
+  showPage('completion');
+  const completed = state.completedChapters.length;
+  const total = courseData.chapters.length;
+  const pct = Math.round((completed / total) * 100);
+
+  document.getElementById('page-completion').innerHTML = `
+    <div class="completion-hero">
+      <div class="completion-icon">${state.quizScore >= 80 ? '🏆' : state.quizScore >= 60 ? '🎉' : '📚'}</div>
+      <h2 class="completion-title">${state.quizScore >= 80 ? '恭喜完成培训！' : '培训完成！'}</h2>
+      <p style="color:var(--text-secondary);margin-top:8px;">离家更要宠宠它，成为<strong>专业、可靠、有温度</strong>的宠托师</p>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:10px;">
+        <span class="tag tag-primary">专业</span>
+        <span class="tag tag-success">可靠</span>
+        <span class="tag tag-warning">有温度</span>
+      </div>
+    </div>
+
+    <div class="completion-stats">
+      <div class="completion-stat"><div class="num">${completed}</div><div class="label">已完成章节</div></div>
+      <div class="completion-stat"><div class="num">${state.quizScore}</div><div class="label">测验得分</div></div>
+      <div class="completion-stat"><div class="num">${pct}%</div><div class="label">完成率</div></div>
+    </div>
+
+    ${state.quizScore < 80 ? `
+    <div class="highlight-card warning" style="margin-bottom:14px;">
+      <h4>💡 测验得分：${state.quizScore}分</h4>
+      <p style="font-size:var(--font-sm);">建议重新学习相关章节后再试一次，确保掌握平台规则。</p>
+      <button class="btn btn-outline btn-sm" onclick="startQuiz()" style="margin-top:8px;">🔄 重新测验</button>
+    </div>
+    ` : `
+    <div class="highlight-card success" style="margin-bottom:14px;text-align:center;">
+      <p style="font-size:var(--font-md);font-weight:700;">🎉 测验通过！得分：${state.quizScore}分</p>
+    </div>
+    `}
+
+    <div class="highlight-card" style="text-align:center;">
+      <p style="font-style:italic;color:var(--text-secondary);">"感谢您观看，欢迎您加入【宠宠它】，用爱与责任呵护每一份信赖！"</p>
+      <p style="font-weight:600;color:var(--primary);margin-top:6px;">—— 宠宠它团队</p>
+    </div>
+
+    <div style="text-align:center;margin-top:20px;">
+      <p style="font-size:var(--font-sm);color:var(--text-secondary);margin-bottom:10px;">准备好开始接单了吗？</p>
+      <p style="font-size:var(--font-base);font-weight:600;">打开宠宠它小程序，开启您的宠托师之旅！🐾</p>
+    </div>
+  `;
+
+  updateProgress();
+}
+
+// ===== UTILS =====
+function updateProgress() {
+  const completed = state.completedChapters.length;
+  const total = courseData.chapters.length;
+  const pct = Math.round((completed / total) * 100);
+
+  document.getElementById('topCompleted').textContent = completed;
+  document.getElementById('progressBar').style.width = pct + '%';
+
+  let label;
+  if (pct === 0) label = '开始你的宠托师之旅吧！';
+  else if (pct < 30) label = '好的开始是成功的一半 💪';
+  else if (pct < 60) label = '学得不错，继续保持！📚';
+  else if (pct < 100) label = '胜利在望，加油！🔥';
+  else label = '全部完成！太棒了！🏆';
+
+  document.getElementById('progressLabel').textContent = label;
+
+  // Update progress bar color
+  const bar = document.getElementById('progressBar');
+  if (pct === 100) {
+    bar.style.background = 'linear-gradient(90deg, #52C41A, #73D13D)';
+  } else {
+    bar.style.background = 'linear-gradient(90deg, #FFA940, #EE7C2B)';
+  }
+}
+
+function copyTemplate(btn, text) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '已复制!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '复制';
+        btn.classList.remove('copied');
+      }, 1500);
+    });
+  }
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+function resetAll() {
+  if (confirm('确定要重置所有学习进度吗？此操作不可恢复！')) {
+    state = { completedChapters: [], chapterChecklists: {}, quizScore: 0, quizDone: false };
+    saveState();
+    quizDone = false;
+    showHome();
+    showToast('🔄 进度已重置');
+  }
+}
+
+// ===== INIT =====
+function init() {
+  renderHome();
+  updateProgress();
+  showPage('home');
+}
+
+init();
+</script>
+
+</body>
+</html>
