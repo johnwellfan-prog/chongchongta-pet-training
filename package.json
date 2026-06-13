@@ -1,0 +1,25 @@
+{
+  "name": "pet-training",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnwellfan-prog/chongchongta-pet-training.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johnwellfan-prog/chongchongta-pet-training/issues"
+  },
+  "homepage": "https://github.com/johnwellfan-prog/chongchongta-pet-training#readme",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}
