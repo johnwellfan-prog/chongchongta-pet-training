@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>宠宠它 - 宠托师专业培训课程</title>
 <meta name="description" content="为宠托师提供互动式培训内容，降低学习阻力，帮助快速吸收知识，提升专业技能。">
+<script src="https://lf3-cdn-tos.bytegoofy.com/goofy/feishu/jsapi/2.0.0/tt.min.js"></script>
 <style>
 /* ===== CSS Variables & Theme ===== */
 :root {
@@ -2593,8 +2594,11 @@ function resetAll() {
   }
 }
 
-// ===== SUBMIT TO BITABLE =====
-const API_URL = 'https://chongchongta-pet.loca.lt/api/submit-training';
+// ===== SUBMIT TO BITABLE (Direct via JSSDK / fetch / Form fallback) =====
+const BASE_TOKEN = 'OhW6bKTqja59ums3Y6Pc9madnsb';
+const TABLE_ID = 'tblN1bXLKi7ofnrj';
+const FORM_VIEW_ID = 'vewG4iGZKX';
+const FORM_URL = `https://ow8yrg5ey2n.feishu.cn/base/${BASE_TOKEN}?table=${TABLE_ID}&view=${FORM_VIEW_ID}`;
 
 function submitCertification() {
   const nameInput = document.getElementById('inputName');
@@ -2606,7 +2610,6 @@ function submitCertification() {
 
   let valid = true;
 
-  // Validate name
   if (!nameInput.value.trim()) {
     nameInput.classList.add('error');
     nameErr.classList.add('show');
@@ -2616,7 +2619,6 @@ function submitCertification() {
     nameErr.classList.remove('show');
   }
 
-  // Validate phone
   const phone = phoneInput.value.trim();
   if (!phone || !/^1[3-9]\d{9}$/.test(phone)) {
     phoneInput.classList.add('error');
@@ -2632,73 +2634,137 @@ function submitCertification() {
 
   if (!valid) return;
 
-  // Show loading
   submitBtn.disabled = true;
   submitBtn.textContent = '⏳ 正在提交...';
   statusEl.className = 'submit-status loading show';
   statusEl.textContent = '正在将您的培训数据同步至认证系统...';
 
-  // Build progress summary
   const completed = state.completedChapters.length;
   const total = courseData.chapters.length;
   const checklistSummary = Object.entries(state.chapterChecklists || {}).map(([k, v]) => {
     const chNum = parseInt(k);
     const ch = courseData.chapters[chNum - 1];
-    if (ch && v && v.length > 0) {
-      return `${ch.title}: ${v.length}项完成`;
-    }
+    if (ch && v && v.length > 0) return `${ch.title}: ${v.length}项`;
     return null;
   }).filter(Boolean).join('; ');
+  const progressStr = `章节${completed}/${total} | 测验${state.quizScore}分 | ${checklistSummary}`;
+  const now = new Date();
+  const timeStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
 
-  const progressStr = `章节完成${completed}/${total} | 测验${state.quizScore}分 | ${checklistSummary}`;
+  const userData = {
+    name: nameInput.value.trim(),
+    phone: phone,
+    score: state.quizScore,
+    time: timeStr,
+    progress: progressStr
+  };
 
-  // Send to backend
-  fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      name: nameInput.value.trim(),
-      phone: phone,
-      score: state.quizScore,
-      progress: progressStr
-    })
-  })
-  .then(r => r.json())
-  .then(data => {
-    if (data.ok) {
+  tryDirectSubmit(userData).then(result => {
+    if (result.ok) {
       statusEl.className = 'submit-status success show';
-      statusEl.innerHTML = '✅ 认证数据已成功提交！<br><small>你的培训记录已同步至宠宠它多维表格</small>';
+      statusEl.innerHTML = '✅ 认证数据已成功提交至多维表格！';
       submitBtn.style.display = 'none';
-
-      // Save submitted state
       state.submitted = true;
-      state.petSitterName = nameInput.value.trim();
-      state.petSitterPhone = phone;
+      state.petSitterName = userData.name;
+      state.petSitterPhone = userData.phone;
       saveState();
-
-      // Show record IDs if available
-      if (data.recordIds && data.recordIds.length > 0) {
-        console.log('Record IDs:', data.recordIds);
-      }
     } else {
-      throw new Error(data.error || '提交失败');
+      throw new Error(result.error || '提交失败');
     }
-  })
-  .catch(err => {
-    console.error('Submit error:', err);
-    // Fallback: save to localStorage and show manual instructions
-    state.submitted = true;
-    state.petSitterName = nameInput.value.trim();
-    state.petSitterPhone = phone;
-    state.pendingSubmission = true;
-    saveState();
-
-    statusEl.className = 'submit-status error show';
-    statusEl.innerHTML = `⚠️ 自动提交失败（网络原因），数据已保存在本地。<br><small>请截图此页面发送给管理员，或稍后重试。</small>`;
-    submitBtn.textContent = '🔄 重试提交';
-    submitBtn.disabled = false;
-    submitBtn.onclick = submitCertification;
+  }).catch(err => {
+    console.log('Direct submit unavailable, showing form fallback:', err.message);
+    showFormFallback(userData);
   });
+}
+
+async function tryDirectSubmit(data) {
+  // Method 1: Feishu JSSDK tt.request (works in Feishu client)
+  if (typeof tt !== 'undefined' && tt.request) {
+    try {
+      const resp = await new Promise((resolve, reject) => {
+        tt.request({
+          url: `https://open.feishu.cn/open-apis/bitable/v1/apps/${BASE_TOKEN}/tables/${TABLE_ID}/records`,
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          data: JSON.stringify({
+            fields: {
+              '姓名': data.name,
+              '手机号': data.phone,
+              '培训得分': data.score,
+              '完成时间': Date.now(),
+              '学习进度': data.progress
+            }
+          }),
+          success: (res) => resolve(JSON.parse(res.data || '{}')),
+          fail: (err) => reject(err)
+        });
+      });
+      if (resp.code === 0) return { ok: true, recordId: resp.data?.record?.record_id };
+      return { ok: false, error: `API: ${resp.msg || resp.code}` };
+    } catch (e) {
+      console.log('JSSDK tt.request failed:', e.message);
+    }
+  }
+
+  // Method 2: fetch with credentials (from Miaoda/Feishu domains)
+  try {
+    const resp = await fetch(
+      `https://open.feishu.cn/open-apis/bitable/v1/apps/${BASE_TOKEN}/tables/${TABLE_ID}/records`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          fields: {
+            '姓名': data.name,
+            '手机号': data.phone,
+            '培训得分': data.score,
+            '完成时间': Date.now(),
+            '学习进度': data.progress
+          }
+        })
+      }
+    );
+    if (resp.ok) {
+      const json = await resp.json();
+      if (json.code === 0) return { ok: true, recordId: json.data?.record?.record_id };
+      return { ok: false, error: json.msg };
+    }
+  } catch (e) {
+    console.log('fetch failed:', e.message);
+  }
+
+  return { ok: false, error: '无法直连API，请使用表单' };
+}
+
+function showFormFallback(data) {
+  const statusEl = document.getElementById('submitStatus');
+  const submitBtn = document.getElementById('submitBtn');
+
+  statusEl.className = 'submit-status loading show';
+  statusEl.innerHTML = `
+    <div style="text-align:left;line-height:1.8;">
+      <p style="font-weight:700;margin-bottom:8px;">📋 请通过飞书表单完成认证：</p>
+      <p>1️⃣ <a href="${FORM_URL}" target="_blank" style="color:var(--primary);font-weight:600;">👉 点击打开认证表单</a></p>
+      <p style="margin-top:8px;">2️⃣ 在表单中填写（可复制下方内容）：</p>
+      <div style="background:#f8f8f6;padding:10px;border-radius:8px;margin:8px 0;font-size:var(--font-sm);">
+        <p>👤 姓名：<strong>${data.name}</strong> <a onclick="copyText('${data.name}')" style="color:var(--primary);font-size:var(--font-xs);cursor:pointer;">[复制]</a></p>
+        <p>📱 手机号：<strong>${data.phone}</strong> <a onclick="copyText('${data.phone}')" style="color:var(--primary);font-size:var(--font-xs);cursor:pointer;">[复制]</a></p>
+        <p>📊 培训得分：<strong>${data.score}分</strong> <a onclick="copyText('${data.score}')" style="color:var(--primary);font-size:var(--font-xs);cursor:pointer;">[复制]</a></p>
+        <p>📝 学习进度：<strong>${data.progress}</strong> <a onclick="copyText('${data.progress}')" style="color:var(--primary);font-size:var(--font-xs);cursor:pointer;">[复制]</a></p>
+      </div>
+      <p>3️⃣ 提交后数据自动写入认证系统 ✅</p>
+    </div>
+  `;
+  submitBtn.textContent = '🔄 重试直连提交';
+  submitBtn.disabled = false;
+  submitBtn.onclick = submitCertification;
+}
+
+function copyText(text) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(String(text)).then(() => showToast('已复制！'));
+  }
 }
 
 // ===== INIT =====
